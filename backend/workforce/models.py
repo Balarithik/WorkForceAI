@@ -17,6 +17,18 @@ class Employee(models.Model):
     baseline_workload_percent = models.FloatField(null=True, blank=True)
     availability = models.CharField(max_length=20, choices=AVAILABILITY_CHOICES, default='AVAILABLE')
     location = models.CharField(max_length=100)
+    job_title = models.CharField(max_length=150, blank=True, default='')
+    phone_number = models.CharField(max_length=30, blank=True, default='')
+    manager_name = models.CharField(max_length=150, blank=True, default='')
+    team = models.CharField(max_length=100, blank=True, default='')
+    preferred_shift = models.CharField(
+        max_length=20,
+        choices=[('DAY', 'Day'), ('EVENING', 'Evening'), ('NIGHT', 'Night'), ('FLEXIBLE', 'Flexible')],
+        default='DAY',
+        blank=True,
+    )
+    certifications = models.JSONField(default=list, blank=True)
+    bio = models.TextField(blank=True, default='')
     historical_performance_score = models.FloatField(default=0.0)
     similar_tasks_completed = models.IntegerField(default=0)
     similar_tasks_success_rate = models.FloatField(default=0.0)

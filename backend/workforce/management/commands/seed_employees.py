@@ -21,8 +21,10 @@ def profile(index):
     skill_start = (index * 3) % len(SKILLS)
     skills = [SKILLS[(skill_start + offset * 5) % len(SKILLS)] for offset in range(4)]
     availability = 'AVAILABLE' if index <= 40 else 'UNAVAILABLE' if index <= 45 else 'ON_LEAVE'
+    name = f'{FIRST_NAMES[(index - 1) % len(FIRST_NAMES)]} {LAST_NAMES[((index - 1) // len(FIRST_NAMES)) % len(LAST_NAMES)]}'
+    shifts = ['DAY', 'EVENING', 'NIGHT', 'FLEXIBLE']
     return {
-        'name': f'{FIRST_NAMES[(index - 1) % len(FIRST_NAMES)]} {LAST_NAMES[((index - 1) // len(FIRST_NAMES)) % len(LAST_NAMES)]}',
+        'name': name,
         'email': f'synthetic.employee{index:03d}@example.test',
         'department': DEPARTMENTS[(index - 1) % len(DEPARTMENTS)],
         'skills': skills,
@@ -30,6 +32,13 @@ def profile(index):
         'current_workload_percent': 10 + ((index * 13) % 81),
         'availability': availability,
         'location': LOCATIONS[(index - 1) % len(LOCATIONS)],
+        'job_title': ['Software Engineer', 'Senior Engineer', 'Data Engineer', 'QA Analyst', 'DevOps Engineer'][index % 5],
+        'phone_number': f'+91-{8000000000 + index * 357}',
+        'manager_name': f'Manager {LAST_NAMES[(index - 1) % len(LAST_NAMES)]}',
+        'team': ['Core Platform', 'AI Systems', 'Client Delivery', 'Support Engineering'][index % 4],
+        'preferred_shift': shifts[index % len(shifts)],
+        'certifications': ['AWS Certified', 'Docker Certified Associate'] if index % 2 else ['Azure Administrator'],
+        'bio': f'{name} supports delivery quality, automation, and cross-functional execution.',
         'historical_performance_score': round(6.0 + ((index * 17) % 39) / 10, 1),
         'similar_tasks_completed': 5 + ((index * 11) % 46),
         'similar_tasks_success_rate': round(0.70 + ((index * 7) % 31) / 100, 2),

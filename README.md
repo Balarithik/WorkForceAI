@@ -7,7 +7,7 @@ The AI Workforce Decision & Resource Allocation Agent is an internal workforce/t
 ## Architecture
 
 - **Frontend**: React (Vite), Tailwind CSS, React Router, Axios
-- **Backend**: Python, Django, Django REST Framework, SQLite
+- **Backend**: Python 3.12, Django, Django REST Framework, SQLite
 - **Machine Learning**: Scikit-Learn (v1.6.1), Pandas, Numpy, Joblib
 - **Optimization**: Google OR-Tools
 

@@ -5,7 +5,6 @@ from workforce.services.reallocation_service import ReallocationService
 from workforce.services.workload_service import recalculate_employee_workload
 from workforce.services.explanation_service import generate_employee_explanation
 from workforce.services.sla_risk_service import calculate_sla_risk, get_sla_risks
-from workforce.services.copilot_service import get_task_summary, get_sla_risks
 from workforce.services.decision_service import record_decision, get_task_decision_history
 
 class WorkforceTests(TestCase):
@@ -28,6 +27,19 @@ class WorkforceTests(TestCase):
     def test_task_creation(self):
         self.assertEqual(Task.objects.count(), 1)
         self.assertEqual(self.task1.status, "PENDING")
+
+    def test_employee_profile_supports_rich_details(self):
+        profile = Employee.objects.create(
+            employee_id="E100", name="Profile Emp", department="Platform",
+            email="profile@example.com", skills=["Python", "SQL"], experience_years=6,
+            current_workload_percent=20, availability='AVAILABLE', location='Remote',
+            job_title='Senior Platform Engineer', phone_number='+91-98765-43210',
+            manager_name='Asha Menon', team='Platform', preferred_shift='Evening',
+            certifications=['AWS Certified', 'CKA']
+        )
+        self.assertEqual(profile.job_title, 'Senior Platform Engineer')
+        self.assertEqual(profile.manager_name, 'Asha Menon')
+        self.assertEqual(profile.certifications, ['AWS Certified', 'CKA'])
 
     def test_reallocation_triggers_when_unavailable(self):
         Assignment.objects.create(
@@ -181,8 +193,6 @@ class WorkforceTests(TestCase):
         self.assertEqual(decision.employee, self.emp1)
         self.assertEqual(get_task_decision_history(self.task1.id).count(), 1)
 
-    def test_copilot_uses_real_data(self):
-        task_summary = get_task_summary(self.task1)
-        self.assertEqual(task_summary['task_id'], 'T001')
+    def test_dashboard_sla_risk_data_is_available(self):
         sla_risks = get_sla_risks()
         self.assertIsInstance(sla_risks, list)

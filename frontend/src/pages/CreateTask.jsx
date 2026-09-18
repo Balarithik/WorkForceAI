@@ -165,11 +165,6 @@ export default function CreateTask() {
 
   return (
     <div>
-      <div className="topbar"><div className="topbar-inner">
-        <div className="brand"><div className="mark">AI</div><div><h1>WorkForceAI</h1><span>Workforce assignment</span></div></div>
-        <div className="stats"><div className="stat"><b>{availableCount}</b><span>Available</span></div><div className="stat"><b>{activeAssignments.length}</b><span>Assigned</span></div><div className="stat"><b>{waitingCount}</b><span>Waiting</span></div></div>
-      </div></div>
-
       <div className="wrap">
         <section className="card">
           <h2>Assign Task</h2>

@@ -17,14 +17,25 @@ class Command(BaseCommand):
         last_names = ['Kumar', 'Sharma', 'Patel', 'Singh', 'Reddy', 'Rao', 'Gupta', 'Desai', 'Joshi', 'Nair']
         departments = ['Engineering', 'Data Science', 'DevOps', 'QA']
         locations = ['Bangalore', 'Hyderabad', 'Pune', 'Remote', 'Chennai']
+        roles = ['Software Engineer', 'Senior Engineer', 'Platform Engineer', 'Data Analyst', 'QA Engineer', 'DevOps Engineer']
+        teams = ['Core Platform', 'Client Delivery', 'AI Systems', 'Cloud Ops', 'Quality Assurance']
+        shifts = ['DAY', 'EVENING', 'NIGHT', 'FLEXIBLE']
+        certifications = [
+            ['AWS Certified', 'Terraform Associate'],
+            ['Azure Administrator'],
+            ['CKA', 'Docker Certified Associate'],
+            ['PMP'],
+            ['Google Cloud Associate'],
+        ]
         all_skills = ['Python', 'Machine Learning', 'SQL', 'React', 'Django', 'AWS', 'Docker', 'Kubernetes', 'Java', 'C++']
 
         self.stdout.write('Creating employees...')
         employees = []
         for i in range(1, 41):
+            name = f"{random.choice(first_names)} {random.choice(last_names)}"
             emp = Employee.objects.create(
                 employee_id=f'E{i:03d}',
-                name=f"{random.choice(first_names)} {random.choice(last_names)}",
+                name=name,
                 email=f"employee{i}@example.com",
                 department=random.choice(departments),
                 skills=random.sample(all_skills, k=random.randint(2, 5)),
@@ -32,6 +43,13 @@ class Command(BaseCommand):
                 current_workload_percent=random.randint(10, 80),
                 availability='AVAILABLE' if random.random() > 0.1 else 'UNAVAILABLE',
                 location=random.choice(locations),
+                job_title=random.choice(roles),
+                phone_number=f'+91-{random.randint(6000000000, 9999999999)}',
+                manager_name=f"Manager {random.choice(last_names)}",
+                team=random.choice(teams),
+                preferred_shift=random.choice(shifts),
+                certifications=random.choice(certifications),
+                bio=f"{name} is a cross-functional team member focused on delivery, automation, and quality.",
                 historical_performance_score=round(random.uniform(6.0, 10.0), 1),
                 similar_tasks_completed=random.randint(5, 50),
                 similar_tasks_success_rate=round(random.uniform(0.7, 1.0), 2)

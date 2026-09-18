@@ -21,8 +21,6 @@ urlpatterns = [
     path('notifications/read-all/', views.mark_all_notifications_read, name='mark-all-notifications-read'),
     path('decisions/', views.decisions, name='decisions'),
     path('tasks/<str:task_id>/decision-history/', views.task_decision_history, name='task-decision-history'),
-    path('copilot/query/', views.copilot_query, name='copilot-query'),
-    path('workforce-twin/', views.workforce_twin, name='workforce-twin'),
     path('outcomes/', views.task_outcomes, name='task-outcomes'),
     path('training/export/', views.export_training_data_api, name='export-training-data'),
 ]

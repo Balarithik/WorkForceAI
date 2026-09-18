@@ -15,8 +15,6 @@ from .services.explanation_service import generate_employee_explanation
 from .services.sla_risk_service import calculate_sla_risk, get_sla_risks
 from .services.notification_service import create_notification, get_notifications, mark_notification_read, mark_all_notifications_read
 from .services.decision_service import record_decision, get_task_decision_history
-from .services.copilot_service import query_copilot, get_task_summary
-from .services.digital_twin_service import get_workforce_twin_summary
 from .services.outcome_service import record_task_outcome, export_training_data, calculate_prediction_metrics
 
 class EmployeeViewSet(viewsets.ModelViewSet):
@@ -369,18 +367,6 @@ def decisions(request):
 def task_decision_history(request, task_id):
     history = get_task_decision_history(task_id)
     return Response(AllocationDecisionSerializer(history, many=True).data)
-
-
-@api_view(['POST'])
-def copilot_query(request):
-    question = request.data.get('question', '')
-    answer = query_copilot(question)
-    return Response(answer)
-
-
-@api_view(['GET'])
-def workforce_twin(request):
-    return Response(get_workforce_twin_summary())
 
 
 @api_view(['GET'])

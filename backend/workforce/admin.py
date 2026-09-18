@@ -3,9 +3,9 @@ from .models import Employee, Task, Assignment, Event
 
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display = ('employee_id', 'name', 'department', 'availability', 'current_workload_percent')
-    list_filter = ('availability', 'department')
-    search_fields = ('employee_id', 'name', 'email')
+    list_display = ('employee_id', 'name', 'department', 'job_title', 'availability', 'current_workload_percent')
+    list_filter = ('availability', 'department', 'preferred_shift')
+    search_fields = ('employee_id', 'name', 'email', 'job_title', 'team', 'manager_name')
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):

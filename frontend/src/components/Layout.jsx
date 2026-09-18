@@ -10,12 +10,37 @@ const navItems = [
   { label: 'Assignments', to: '/assignments' },
   { label: 'Events', to: '/events' },
   { label: 'SLA Risk', to: '/sla-risk' },
-  { label: 'AI Copilot', to: '/copilot' },
-  { label: 'Digital Twin', to: '/workforce-twin' },
   { label: 'Decision History', to: '/decision-history' },
 ];
 
-export default function Layout() {
+function BackendStatusBanner({ backendStatus }) {
+  if (!backendStatus || backendStatus.status === 'ready') return null;
+
+  const isStarting = backendStatus.status === 'checking';
+  const title = isStarting ? 'WORKFORCE BACKEND CONNECTING' : 'WORKFORCE BACKEND UNAVAILABLE';
+  const description = isStarting
+    ? 'The workforce server is starting. Please wait a moment. Refresh the page once the connection is ready.'
+    : 'The backend could not be reached. Please wait for the backend to connect, then refresh the page.';
+
+  return (
+    <div
+      className={`backend-banner ${isStarting ? 'warning' : 'danger'}`}
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      <div className="backend-banner__title">{title}</div>
+      <div className="backend-banner__body">
+        <span>{description}</span>
+        <button type="button" className="backend-banner__button" onClick={backendStatus.retry}>
+          {isStarting ? 'Check Again' : 'Try Again'}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default function Layout({ backendStatus, children }) {
   const [unreadCount, setUnreadCount] = useState(0);
 
   useEffect(() => {
@@ -34,6 +59,7 @@ export default function Layout() {
 
   return (
     <div>
+      {backendStatus && <BackendStatusBanner backendStatus={backendStatus} />}
       <div className="topbar">
         <div className="topbar-inner">
           <div className="brand">
@@ -71,7 +97,7 @@ export default function Layout() {
             </NavLink>
           ))}
         </nav>
-        <Outlet />
+        {children || <Outlet />}
       </div>
     </div>
   );

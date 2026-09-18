@@ -36,9 +36,13 @@ export default function Employees() {
         <thead className="bg-gray-50">
           <tr>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Employee</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Team</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Manager</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Shift</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Workload</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Availability</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Certifications</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
           </tr>
         </thead>
@@ -48,8 +52,13 @@ export default function Employees() {
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="font-medium text-gray-900">{emp.name}</div>
                 <div className="text-sm text-gray-500">{emp.employee_id}</div>
+                <div className="text-xs text-gray-400">{emp.email || 'No email'}</div>
+                <div className="text-xs text-gray-400">{emp.phone_number || 'No phone'}</div>
               </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{emp.department}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{emp.job_title || emp.department}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{emp.team || emp.department}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{emp.manager_name || 'Unassigned'}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{emp.preferred_shift || 'DAY'}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{emp.current_workload_percent}%</td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
@@ -57,6 +66,9 @@ export default function Employees() {
                 }`}>
                   {emp.availability}
                 </span>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {Array.isArray(emp.certifications) && emp.certifications.length > 0 ? emp.certifications.join(', ') : 'None'}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                 <button 
