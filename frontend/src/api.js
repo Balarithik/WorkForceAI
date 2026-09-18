@@ -23,6 +23,7 @@ api.interceptors.response.use(
 );
 
 export const getDashboardStats = () => api.get('/dashboard/stats/');
+export const getHealthStatus = () => api.get('/health/');
 export const getEmployees = () => api.get('/employees/');
 export const getTasks = () => api.get('/tasks/');
 export const getAssignments = () => api.get('/assignments/');
@@ -33,8 +34,6 @@ export const markNotificationRead = (id) => api.patch(`/notifications/${id}/read
 export const markAllNotificationsRead = () => api.post('/notifications/read-all/');
 export const getDecisions = () => api.get('/decisions/');
 export const getTaskDecisionHistory = (taskId) => api.get(`/tasks/${taskId}/decision-history/`);
-export const getWorkforceTwin = () => api.get('/workforce-twin/');
-export const queryCopilot = (question) => api.post('/copilot/query/', { question });
 
 export const updateEmployee = (id, data) => api.patch(`/employees/${id}/`, data);
 

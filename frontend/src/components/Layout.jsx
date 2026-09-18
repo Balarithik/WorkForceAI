@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { getNotifications } from '../api';
+import useBackendHealth from '../hooks/useBackendHealth';
 
 const navItems = [
   { label: 'Create Task', to: '/create-task' },
@@ -10,13 +11,38 @@ const navItems = [
   { label: 'Assignments', to: '/assignments' },
   { label: 'Events', to: '/events' },
   { label: 'SLA Risk', to: '/sla-risk' },
-  { label: 'AI Copilot', to: '/copilot' },
-  { label: 'Digital Twin', to: '/workforce-twin' },
   { label: 'Decision History', to: '/decision-history' },
 ];
 
+function BackendStatusBanner({ status, error, retry }) {
+  const isChecking = status === 'checking';
+  const isUnavailable = status === 'unavailable';
+
+  if (status === 'ready') {
+    return null;
+  }
+
+  return (
+    <div className={`backend-banner ${isUnavailable ? 'backend-banner--unavailable' : 'backend-banner--checking'}`} role="status" aria-live="polite">
+      <div className="backend-banner__content">
+        <strong>{isUnavailable ? 'WORKFORCE BACKEND UNAVAILABLE' : 'WORKFORCE BACKEND CONNECTING'}</strong>
+        <span>
+          {isUnavailable
+            ? 'The workforce backend could not be reached. Please wait a moment and try again.'
+            : 'The workforce server is starting. Please wait a moment and refresh the page once the connection is ready.'}
+        </span>
+        {error && <small>{error}</small>}
+      </div>
+      <button type="button" className="backend-banner__button" onClick={retry}>
+        Check Again
+      </button>
+    </div>
+  );
+}
+
 export default function Layout() {
   const [unreadCount, setUnreadCount] = useState(0);
+  const { status, error, retry } = useBackendHealth();
 
   useEffect(() => {
     const refreshNotifications = async () => {
@@ -51,6 +77,9 @@ export default function Layout() {
           </div>
         </div>
       </div>
+      <div className="wrap wrap--status">
+        <BackendStatusBanner status={status} error={error} retry={retry} />
+      </div>
       <div className="wrap">
         <nav style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '18px' }}>
           {navItems.map(({ label, to }) => (
@@ -71,7 +100,7 @@ export default function Layout() {
             </NavLink>
           ))}
         </nav>
-        <Outlet />
+        {status === 'ready' ? <Outlet /> : <div className="card empty">{status === 'checking' ? 'Waiting for backend...' : 'Unable to connect to the workforce backend.'}</div>}
       </div>
     </div>
   );
