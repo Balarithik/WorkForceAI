@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: BACKEND_URL,
+        target: 'https://workforceai-backend.onrender.com/',
         changeOrigin: true,
       },
     },
