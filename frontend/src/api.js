@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://workforceai-backend.onrender.com/api';
+const API_URL = (import.meta.env.VITE_API_BASE_URL || '/api').replace(/\/+$/, '');
 
 export const api = axios.create({
   baseURL: API_URL,
@@ -10,7 +10,13 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (!error.response) {
-      error.message = 'The workforce API is unavailable.';
+      error.message = 'Cannot reach workforce backend. Check network and CORS configuration.';
+    } else if (error.response.status === 403) {
+      error.message = 'Backend rejected the request (403). Check CORS and CSRF configuration.';
+    } else if (error.response.status === 404) {
+      error.message = 'API endpoint not found (404). Check the API URL path.';
+    } else if (error.response.status >= 500) {
+      error.message = `Backend returned an internal server error (${error.response.status}).`;
     }
     return Promise.reject(error);
   },
