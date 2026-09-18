@@ -1,10 +1,20 @@
 import axios from 'axios';
 
-const API_URL = 'http://127.0.0.1:8000/api';
+const API_URL = (import.meta.env.VITE_API_BASE_URL || '/api').replace(/\/+$/, '');
 
 export const api = axios.create({
   baseURL: API_URL,
 });
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (!error.response) {
+      error.message = 'The workforce API is unavailable.';
+    }
+    return Promise.reject(error);
+  },
+);
 
 export const getDashboardStats = () => api.get('/dashboard/stats/');
 export const getEmployees = () => api.get('/employees/');

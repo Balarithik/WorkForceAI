@@ -7,3 +7,4 @@ pandas>=2.0,<3
 scikit-learn==1.6.1
 xgboost==2.1.4
 ortools
+gunicorn

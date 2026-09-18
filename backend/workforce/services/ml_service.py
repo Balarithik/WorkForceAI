@@ -3,7 +3,6 @@ import os
 import warnings
 
 import joblib
-import pandas as pd
 from django.conf import settings
 
 from .feature_service import extract_features
@@ -69,6 +68,8 @@ class MLService:
 
     @staticmethod
     def _prepare_feature_frame(feature_rows):
+        import pandas as pd
+
         if not feature_rows:
             return pd.DataFrame(columns=MODEL_COLUMNS)
 
@@ -111,6 +112,11 @@ class MLService:
             'sla_probability': sla_probability,
             'predicted_completion_hours': predicted_hours,
             'time_score': time_score,
+            'score_breakdown': {
+                'success_contribution': 50 * success_probability,
+                'sla_contribution': 30 * sla_probability,
+                'time_contribution': 20 * time_score,
+            },
             'suitability_score': suitability_score,
         }
 
@@ -143,10 +149,17 @@ class MLService:
 
             results.append({
                 'employee': emp,
+                'skill_match_score': feature_list[i]['skill_match_score'],
                 'success_probability': success_probability,
                 'sla_probability': sla_probability,
                 'predicted_completion_hours': predicted_hours,
                 'time_score': time_score,
+                'available_capacity_percent': max(100 - emp.current_workload_percent, 0),
+                'score_breakdown': {
+                    'success_contribution': 50 * success_probability,
+                    'sla_contribution': 30 * sla_probability,
+                    'time_contribution': 20 * time_score,
+                },
                 'suitability_score': suitability_score,
             })
 

@@ -14,6 +14,7 @@ class Employee(models.Model):
     skills = models.JSONField(default=list)  # Using JSONField for skills
     experience_years = models.FloatField()
     current_workload_percent = models.IntegerField(default=0)
+    baseline_workload_percent = models.FloatField(null=True, blank=True)
     availability = models.CharField(max_length=20, choices=AVAILABILITY_CHOICES, default='AVAILABLE')
     location = models.CharField(max_length=100)
     historical_performance_score = models.FloatField(default=0.0)
@@ -44,7 +45,7 @@ class Task(models.Model):
 
     task_id = models.CharField(max_length=50, unique=True)
     title = models.CharField(max_length=200)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     task_type = models.CharField(max_length=100)
     required_skills = models.JSONField(default=list)
     priority = models.CharField(max_length=20, choices=PRIORITY_CHOICES)

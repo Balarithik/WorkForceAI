@@ -3,14 +3,17 @@ import { getEmployees, updateEmployee } from '../api';
 
 export default function Employees() {
   const [employees, setEmployees] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  const fetchEmployees = () => {
+    setLoading(true);
+    getEmployees().then(res => setEmployees(res.data)).catch(() => setError('Unable to load employees.')).finally(() => setLoading(false));
+  };
 
   useEffect(() => {
     fetchEmployees();
   }, []);
-
-  const fetchEmployees = () => {
-    getEmployees().then(res => setEmployees(res.data)).catch(console.error);
-  };
 
   const toggleAvailability = async (emp) => {
     const newStatus = emp.availability === 'AVAILABLE' ? 'UNAVAILABLE' : 'AVAILABLE';
@@ -19,13 +22,17 @@ export default function Employees() {
       fetchEmployees();
     } catch (e) {
       console.error(e);
-      alert('Failed to update employee status');
+      setError(e.response?.data?.detail || e.response?.data?.error || 'Unable to update employee status.');
     }
   };
 
   return (
-    <div className="bg-white rounded-lg shadow border border-gray-100 overflow-hidden">
-      <table className="min-w-full divide-y divide-gray-200">
+    <div className="card">
+      <div className="sub" style={{ marginBottom: 14 }}>Live data &bull; SQLite</div>
+      {error && <div className="result bad">{error}</div>}
+      {loading && <div className="empty">Loading employees...</div>}
+      {!loading && employees.length === 0 && <div className="empty">No employees found.</div>}
+      {!loading && employees.length > 0 && <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Employee</th>
@@ -62,7 +69,7 @@ export default function Employees() {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table>}
     </div>
   );
 }

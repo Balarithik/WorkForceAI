@@ -3,14 +3,19 @@ import { getTasks } from '../api';
 
 export default function Tasks() {
   const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    getTasks().then(res => setTasks(res.data)).catch(console.error);
+    getTasks().then(res => setTasks(res.data)).catch(() => setError('Unable to load tasks.')).finally(() => setLoading(false));
   }, []);
 
   return (
-    <div className="bg-white rounded-lg shadow border border-gray-100 overflow-hidden">
-      <table className="min-w-full divide-y divide-gray-200">
+    <div className="card">
+      {error && <div className="result bad">{error}</div>}
+      {loading && <div className="empty">Loading tasks...</div>}
+      {!loading && tasks.length === 0 && <div className="empty">No active tasks.</div>}
+      {!loading && tasks.length > 0 && <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Task</th>
@@ -43,7 +48,7 @@ export default function Tasks() {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table>}
     </div>
   );
 }

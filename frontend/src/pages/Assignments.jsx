@@ -3,14 +3,19 @@ import { getAssignments } from '../api';
 
 export default function Assignments() {
   const [assignments, setAssignments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    getAssignments().then(res => setAssignments(res.data)).catch(console.error);
+    getAssignments().then(res => setAssignments(res.data)).catch(() => setError('Unable to load assignments.')).finally(() => setLoading(false));
   }, []);
 
   return (
-    <div className="bg-white rounded-lg shadow border border-gray-100 overflow-hidden">
-      <table className="min-w-full divide-y divide-gray-200">
+    <div className="card">
+      {error && <div className="result bad">{error}</div>}
+      {loading && <div className="empty">Loading assignments...</div>}
+      {!loading && assignments.length === 0 && <div className="empty">No assignments yet.</div>}
+      {!loading && assignments.length > 0 && <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Task</th>
@@ -25,7 +30,7 @@ export default function Assignments() {
             <tr key={a.id}>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{a.task_details?.title}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{a.employee_details?.name}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-indigo-600">{a.suitability_score.toFixed(1)}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-indigo-600">{Number(a.suitability_score).toFixed(1)}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{(a.success_probability * 100).toFixed(1)}%</td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
@@ -37,7 +42,7 @@ export default function Assignments() {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table>}
     </div>
   );
 }

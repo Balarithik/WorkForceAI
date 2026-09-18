@@ -4,14 +4,18 @@ import { Activity } from 'lucide-react';
 
 export default function Events() {
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    getEvents().then(res => setEvents(res.data.sort((a,b) => new Date(b.created_at) - new Date(a.created_at)))).catch(console.error);
+    getEvents().then(res => setEvents([...res.data].sort((a,b) => new Date(b.created_at) - new Date(a.created_at)))).catch(() => setError('Unable to load events.')).finally(() => setLoading(false));
   }, []);
 
   return (
-    <div className="bg-white shadow overflow-hidden sm:rounded-md border border-gray-100">
-      <ul className="divide-y divide-gray-200">
+    <div className="card">
+      {error && <div className="result bad">{error}</div>}
+      {loading && <div className="empty">Loading events...</div>}
+      {!loading && <ul className="divide-y divide-gray-200">
         {events.map((event) => (
           <li key={event.id}>
             <div className="px-4 py-4 sm:px-6 hover:bg-gray-50 transition">
@@ -38,8 +42,8 @@ export default function Events() {
             </div>
           </li>
         ))}
-      </ul>
-      {events.length === 0 && <div className="p-6 text-center text-gray-500">No events found.</div>}
+      </ul>}
+      {!loading && events.length === 0 && <div className="empty">No events found.</div>}
     </div>
   );
 }

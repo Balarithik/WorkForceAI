@@ -2,6 +2,7 @@ from workforce.models import Task, Employee, Assignment, Event
 from .ml_service import ml_service
 from .allocation_service import AllocationService
 from django.utils import timezone
+from .workload_service import recalculate_employee_workload
 
 class ReallocationService:
     @staticmethod
@@ -24,6 +25,7 @@ class ReallocationService:
             assignment.status = 'REALLOCATED'
             assignment.completed_at = timezone.now()
             assignment.save()
+            recalculate_employee_workload(employee, create_event=True)
             
             # Reallocate
             ReallocationService.reallocate_task(task, old_employee=employee)
@@ -65,6 +67,7 @@ class ReallocationService:
                 suitability_score=metrics["suitability_score"],
                 status='ACTIVE'
             )
+            recalculate_employee_workload(new_emp, create_event=True)
             
             task.status = 'ASSIGNED'
             task.save()

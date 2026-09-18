@@ -1,7 +1,21 @@
-from ortools.linear_solver import pywraplp
+import os
+
 from workforce.models import Employee, Task, Assignment
 
+try:
+    from ortools.linear_solver import pywraplp
+except Exception:
+    pywraplp = None
+
 class AllocationService:
+    MIN_SKILL_MATCH = float(os.getenv('MIN_SKILL_MATCH', '0.5'))
+    MAX_WORKLOAD_PERCENT = float(os.getenv('MAX_WORKLOAD_PERCENT', '100'))
+    HOURS_PER_WORKDAY = float(os.getenv('HOURS_PER_WORKDAY', '40'))
+
+    @classmethod
+    def effective_workload_hours(cls, employee):
+        return employee.current_workload_percent / 100.0 * cls.HOURS_PER_WORKDAY
+
     @staticmethod
     def optimize_allocation(tasks, candidates_matrix):
         """
@@ -9,6 +23,9 @@ class AllocationService:
         candidates_matrix: dict of task_id -> list of candidate dicts
         candidate dict: {"employee": Employee, "suitability_score": float, ...}
         """
+        if pywraplp is None:
+            return None
+
         solver = pywraplp.Solver.CreateSolver('SCIP')
         if not solver:
             return None
@@ -21,6 +38,12 @@ class AllocationService:
             candidates = candidates_matrix.get(task.id, [])
             for cand in candidates:
                 emp = cand["employee"]
+                if emp.availability != 'AVAILABLE':
+                    continue
+                if cand.get('skill_match_score', 0) < AllocationService.MIN_SKILL_MATCH:
+                    continue
+                if cand.get('predicted_completion_hours', 0) > task.sla_hours:
+                    continue
                 score = cand["suitability_score"]
                 
                 # Only consider candidates above a minimum threshold if we want, but let's include all valid
@@ -60,9 +83,11 @@ class AllocationService:
                     # Coefficient = estimated_effort_hours
                     emp_vars.append(assignments[(task.id, emp.id)] * task.estimated_effort_hours)
             
-            # Simplified workload limit constraint: Don't let estimated effort exceed remaining workload percent hours
-            # Assuming 100% workload = 40 hours for simplicity, so remaining capacity in hours
-            capacity_hours = max((100 - emp.current_workload_percent) / 100.0 * 40, 0)
+            capacity_hours = max(
+                (AllocationService.MAX_WORKLOAD_PERCENT / 100.0 * AllocationService.HOURS_PER_WORKDAY)
+                - AllocationService.effective_workload_hours(emp),
+                0,
+            )
             if emp_vars:
                 solver.Add(sum(emp_vars) <= capacity_hours)
                 

@@ -10,6 +10,7 @@ router.register(r'events', views.EventViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('health/', views.health, name='health'),
     path('dashboard/stats/', views.dashboard_stats, name='dashboard-stats'),
     path('allocation/predict/', views.predict_allocation, name='predict-allocation'),
     path('allocation/assign/', views.assign_task, name='assign-task'),
