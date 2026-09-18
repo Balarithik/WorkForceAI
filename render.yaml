@@ -17,9 +17,9 @@ services:
       - key: ALLOWED_HOSTS
         value: "workforceai-backend.onrender.com"
       - key: CORS_ALLOWED_ORIGINS
-        value: "https://workforceai-frontend.onrender.com,http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174"
+        value: "https://workforceai.onrender.com,http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174"
       - key: CSRF_TRUSTED_ORIGINS
-        value: "https://workforceai-frontend.onrender.com,http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174"
+        value: "https://workforceai.onrender.com,http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174"
       - key: SQLITE_DB_PATH
         value: "/app/db.sqlite3"
       - key: ML_MODEL_DIR
@@ -28,14 +28,10 @@ services:
         value: "1"
       - key: SECRET_KEY
         generateValue: true
-    disk:
-      name: backend-data
-      mountPath: /app
-      sizeGB: 1
 
   # Frontend Service (React + Nginx)
   - type: web
-    name: workforceai-frontend
+    name: workforceai
     runtime: docker
     dockerfilePath: ./frontend/Dockerfile
     dockerContext: ./frontend

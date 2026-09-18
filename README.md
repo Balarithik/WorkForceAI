@@ -352,7 +352,7 @@ The configured backend URL is:
 
 The frontend URL is not confirmed in repository configuration, so the Live Demo link at the top is intentionally a placeholder. Replace it after confirming the deployed frontend address.
 
-The backend uses SQLite and Render persistent-disk configuration. SQLite is suitable for this project setup, but a production multi-instance deployment should consider a managed database such as PostgreSQL.
+The backend uses SQLite. The free Render tier does not support persistent disks, so database changes may be lost when the service is redeployed or restarted. A production multi-instance deployment should use a managed database such as PostgreSQL or a paid Render service with persistent storage.
 
 Required deployment settings include `SECRET_KEY`, `DEBUG`, `ALLOWED_HOSTS`, CORS/CSRF origins, `SQLITE_DB_PATH`, `ML_MODEL_DIR`, and `VITE_API_BASE_URL`.
 
