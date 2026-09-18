@@ -36,8 +36,7 @@ class MLService:
         return cls._instance
 
     def _load_models(self):
-        base_dir = settings.BASE_DIR
-        ml_dir = os.path.join(base_dir, 'ml_models')
+        ml_dir = getattr(settings, 'ML_MODEL_DIR', os.path.join(settings.BASE_DIR, 'ml_models'))
         files = {
             'success': os.path.join(ml_dir, 'task_success_model.pkl'),
             'sla': os.path.join(ml_dir, 'sla_model.pkl'),
