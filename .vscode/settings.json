@@ -1,0 +1,15 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^py -3\\.13 -V; py -3\\.13 -m venv e:\\\\projects\\\\WorkForceAI\\\\venv; e:\\\\projects\\\\WorkForceAI\\\\venv\\\\Scripts\\\\python\\.exe -V$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^e:\\\\projects\\\\WorkForceAI\\\\venv\\\\Scripts\\\\python\\.exe -m pip install --upgrade pip setuptools wheel; e:\\\\projects\\\\WorkForceAI\\\\venv\\\\Scripts\\\\python\\.exe -m pip install -r e:\\\\projects\\\\WorkForceAI\\\\backend\\\\requirements\\.txt$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "&": true,
+        "..\\venv\\Scripts\\python.exe": true,
+        "&'E:\\projects\\WorkForceAI\\venv\\Scripts\\python.exe'": true
+    }
+}

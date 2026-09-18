@@ -1,0 +1,301 @@
+employee_id,experience_years,skills,current_workload_percent,availability,location,historical_performance_score,max_hours_per_day
+E0001,4,Python|Git|Spring Boot,84,0,Delhi,8.41,7
+E0002,9,SQL|JavaScript|Node.js,18,0,Delhi,9.41,8
+E0003,5,Cybersecurity|Spring Boot|Python|React|Linux|Azure,58,0,Coimbatore,9.25,8
+E0004,1,Docker|Selenium|Spring Boot,73,0,Delhi,9.76,7
+E0005,1,AWS|PostgreSQL|Selenium|Docker|Cybersecurity|JavaScript|SQL,25,0,Coimbatore,7.52,8
+E0006,11,Power BI|PostgreSQL|Docker|React|JavaScript,49,0,Bangalore,7.1,9
+E0007,11,React|Power BI|Kubernetes|Spring Boot,56,0,Hyderabad,8.0,7
+E0008,12,Kubernetes|Spring Boot|SQL|JavaScript|Cybersecurity,55,0,Kolkata,7.71,8
+E0009,5,Deep Learning|Spring Boot|Git|Node.js|Spark|Selenium,66,1,Hyderabad,8.19,8
+E0010,10,TensorFlow|SQL|Java|Machine Learning|Deep Learning|React|Linux,23,1,Delhi,7.41,9
+E0011,5,PyTorch|Spring Boot|Spark|Python|Machine Learning|MongoDB,52,1,Bangalore,8.28,8
+E0012,3,Git|Spring Boot|PyTorch,79,0,Pune,7.52,9
+E0013,10,JavaScript|Deep Learning|Docker|React|Spark|PyTorch|Python,61,1,Hyderabad,8.13,7
+E0014,2,Cybersecurity|SQL|Git|TensorFlow,83,0,Bangalore,8.33,8
+E0015,12,React|Spring Boot|PyTorch|Selenium|Linux|JavaScript|Spark,66,1,Kolkata,7.76,9
+E0016,10,Machine Learning|Node.js|C++|SQL|Azure|Python,85,0,Hyderabad,7.1,7
+E0017,4,C++|PostgreSQL|Java,57,0,Hyderabad,8.37,8
+E0018,4,JavaScript|Spark|Deep Learning|Cybersecurity|PostgreSQL|TensorFlow,75,1,Hyderabad,8.28,7
+E0019,7,MongoDB|Linux|Docker,21,0,Chennai,6.93,8
+E0020,3,Machine Learning|Node.js|JavaScript|Spark|Power BI,69,0,Pune,8.99,8
+E0021,1,SQL|Power BI|Spark|Machine Learning,16,0,Hyderabad,7.66,8
+E0022,7,TensorFlow|Git|JavaScript|Kubernetes|Java|React,15,1,Pune,7.44,8
+E0023,12,Linux|C++|Git|Spark|MongoDB,42,0,Chennai,7.71,8
+E0024,9,Java|Cybersecurity|TensorFlow,82,0,Chennai,8.24,9
+E0025,2,React|SQL|Selenium,30,0,Chennai,7.95,9
+E0026,10,Linux|MongoDB|Cybersecurity,81,1,Pune,7.71,8
+E0027,11,Node.js|Spring Boot|Kubernetes|Deep Learning|MongoDB,24,0,Kolkata,8.0,9
+E0028,6,Machine Learning|SQL|Spark|JavaScript|PyTorch|Spring Boot|Deep Learning,23,0,Mumbai,8.82,8
+E0029,10,Power BI|Spark|C++|AWS,82,0,Pune,9.55,7
+E0030,3,Spring Boot|Machine Learning|Git|Spark,49,1,Hyderabad,8.06,8
+E0031,8,MongoDB|PostgreSQL|Spring Boot|PyTorch,21,0,Delhi,8.19,8
+E0032,11,Python|Azure|Deep Learning,48,0,Kolkata,9.84,9
+E0033,1,Spark|Python|Machine Learning|SQL|Deep Learning|Git,33,1,Bangalore,8.7,7
+E0034,11,Docker|Java|JavaScript|MongoDB|Node.js,28,1,Delhi,7.35,9
+E0035,3,Node.js|React|Linux|Python,67,0,Pune,8.14,8
+E0036,4,Kubernetes|Java|TensorFlow,40,1,Mumbai,7.53,8
+E0037,7,Node.js|Python|MongoDB|JavaScript,50,1,Delhi,7.49,9
+E0038,5,Python|Machine Learning|Spring Boot|React|Cybersecurity,19,0,Delhi,9.52,8
+E0039,10,Linux|Selenium|PyTorch|Machine Learning|Kubernetes,70,0,Hyderabad,8.28,8
+E0040,12,SQL|MongoDB|Azure|Selenium|C++|Machine Learning,53,1,Delhi,8.41,8
+E0041,11,C++|AWS|Spark|Deep Learning|JavaScript|Linux,37,1,Delhi,9.25,9
+E0042,10,AWS|JavaScript|Linux,56,1,Kolkata,7.79,8
+E0043,11,PyTorch|TensorFlow|Git|React,57,0,Hyderabad,8.98,8
+E0044,4,JavaScript|Deep Learning|Python|Java,75,0,Kolkata,8.66,8
+E0045,11,JavaScript|C++|Kubernetes|TensorFlow|MongoDB|Node.js|Deep Learning,28,1,Hyderabad,7.59,8
+E0046,8,Power BI|Java|Spark|Node.js|Machine Learning|Git|Deep Learning,82,1,Kolkata,6.74,9
+E0047,4,Linux|Spark|Power BI|React|TensorFlow|MongoDB|Spring Boot,81,1,Hyderabad,8.52,8
+E0048,6,SQL|C++|AWS|Node.js|Spring Boot|Azure,84,0,Bangalore,7.69,8
+E0049,2,Kubernetes|C++|Deep Learning|JavaScript,74,1,Chennai,7.62,8
+E0050,1,Kubernetes|Cybersecurity|Python|C++|Git|TensorFlow,60,1,Delhi,8.54,8
+E0051,7,Git|Spark|Selenium|Node.js|TensorFlow|PostgreSQL|Spring Boot,66,0,Kolkata,7.46,8
+E0052,11,Spark|Python|Kubernetes|Cybersecurity|PostgreSQL|C++|SQL,69,0,Kolkata,8.27,8
+E0053,4,Spring Boot|Kubernetes|Azure,63,1,Delhi,7.55,8
+E0054,9,TensorFlow|Python|Git,21,1,Hyderabad,8.39,7
+E0055,1,Python|Node.js|JavaScript,75,0,Hyderabad,7.8,8
+E0056,2,Docker|React|Selenium|Git|C++,35,1,Coimbatore,7.82,9
+E0057,7,AWS|Cybersecurity|MongoDB,24,0,Coimbatore,7.25,8
+E0058,2,Machine Learning|Cybersecurity|Java|Docker|Spark|Linux|PostgreSQL,79,1,Chennai,8.92,8
+E0059,7,Machine Learning|Linux|Docker|PostgreSQL|Power BI|Deep Learning,49,1,Kolkata,8.61,8
+E0060,8,Spring Boot|Azure|Node.js|SQL|Git|Power BI|MongoDB,63,1,Chennai,9.01,8
+E0061,6,React|TensorFlow|JavaScript|Docker|Spring Boot,50,0,Hyderabad,8.01,7
+E0062,4,Git|Linux|TensorFlow|Spark,75,1,Kolkata,9.19,7
+E0063,12,AWS|Node.js|Kubernetes,62,1,Mumbai,8.25,8
+E0064,2,Azure|Docker|Power BI|Spring Boot|AWS|PostgreSQL|Node.js,39,1,Coimbatore,9.31,9
+E0065,12,JavaScript|Git|TensorFlow|Spring Boot,51,0,Hyderabad,7.13,8
+E0066,12,Docker|React|AWS|Python,83,0,Pune,7.52,7
+E0067,3,Spark|AWS|C++,28,0,Pune,7.39,8
+E0068,2,Power BI|Azure|React|Java|Spring Boot|TensorFlow,23,1,Kolkata,7.24,7
+E0069,2,PostgreSQL|MongoDB|Java|Deep Learning|Git|Cybersecurity|AWS,68,0,Delhi,8.58,8
+E0070,10,AWS|Cybersecurity|Linux|Git|C++|Java,27,0,Hyderabad,8.19,8
+E0071,2,React|Node.js|Spark,75,1,Chennai,8.63,8
+E0072,4,C++|AWS|Power BI|SQL|MongoDB,48,0,Delhi,8.84,7
+E0073,3,Node.js|PostgreSQL|Deep Learning|Spring Boot|MongoDB|SQL|Java,51,1,Coimbatore,8.47,8
+E0074,8,C++|Kubernetes|Spring Boot|PyTorch|Spark,71,0,Chennai,7.23,8
+E0075,11,Selenium|Spring Boot|Python|SQL|Node.js,17,1,Chennai,8.7,8
+E0076,7,PyTorch|PostgreSQL|Power BI|Spring Boot|React|Cybersecurity,77,0,Kolkata,7.36,8
+E0077,7,Azure|Git|MongoDB|Machine Learning|React|C++,66,0,Kolkata,7.99,7
+E0078,1,Spring Boot|Azure|Machine Learning|Kubernetes|PyTorch,84,1,Delhi,7.62,7
+E0079,11,PyTorch|Docker|Selenium|TensorFlow,49,0,Pune,7.97,8
+E0080,5,Machine Learning|Python|PostgreSQL|Selenium|Node.js|React,85,0,Delhi,8.29,7
+E0081,8,Machine Learning|Power BI|PostgreSQL|Deep Learning,49,1,Kolkata,8.77,8
+E0082,4,Power BI|Spark|Deep Learning|Kubernetes,80,0,Coimbatore,7.94,8
+E0083,10,Azure|PyTorch|Spring Boot|Python|AWS|Selenium,34,1,Kolkata,7.23,8
+E0084,12,Spark|Kubernetes|Power BI|Azure|JavaScript,45,1,Hyderabad,7.67,8
+E0085,12,Azure|Git|TensorFlow,34,1,Chennai,8.83,8
+E0086,1,Cybersecurity|Azure|Machine Learning|Power BI|MongoDB|PyTorch|PostgreSQL,33,1,Bangalore,7.82,7
+E0087,11,Spring Boot|Azure|Selenium|Kubernetes|SQL|C++,55,1,Chennai,8.67,9
+E0088,5,Node.js|PostgreSQL|MongoDB,44,0,Delhi,7.63,7
+E0089,5,Power BI|React|C++,22,1,Mumbai,8.39,8
+E0090,3,Deep Learning|Node.js|PyTorch|Linux|Cybersecurity|React,37,0,Delhi,8.07,9
+E0091,8,TensorFlow|Cybersecurity|Deep Learning|Node.js,16,1,Pune,7.66,9
+E0092,5,SQL|Power BI|Docker|Cybersecurity,69,1,Kolkata,7.57,8
+E0093,7,Kubernetes|TensorFlow|Machine Learning|Node.js,52,0,Delhi,7.32,8
+E0094,1,Cybersecurity|MongoDB|Git,78,1,Hyderabad,7.77,9
+E0095,11,Node.js|PostgreSQL|JavaScript|Selenium|Spring Boot,32,0,Chennai,8.24,8
+E0096,6,Java|Cybersecurity|Docker|Deep Learning|SQL|AWS,68,0,Hyderabad,6.92,8
+E0097,5,Docker|PyTorch|C++|Spring Boot|React|PostgreSQL|TensorFlow,29,1,Coimbatore,8.19,8
+E0098,6,MongoDB|Git|Kubernetes|Spark,26,1,Chennai,7.52,8
+E0099,2,Machine Learning|Power BI|Docker|Spring Boot|Cybersecurity|Kubernetes|MongoDB,56,0,Coimbatore,7.81,8
+E0100,1,PostgreSQL|Linux|Machine Learning|Deep Learning|Java,53,1,Coimbatore,7.45,7
+E0101,6,Spark|Deep Learning|Kubernetes|Power BI,84,1,Bangalore,7.61,8
+E0102,5,TensorFlow|Selenium|Linux,19,1,Hyderabad,7.11,8
+E0103,1,Node.js|Docker|Machine Learning|C++|Spark|PostgreSQL,30,1,Coimbatore,7.81,8
+E0104,2,Python|Java|Azure|Node.js|Deep Learning|Cybersecurity|JavaScript,85,0,Hyderabad,8.49,8
+E0105,5,Deep Learning|Selenium|Python|Spring Boot|Spark,18,0,Chennai,8.31,8
+E0106,5,Cybersecurity|Azure|Python|React,21,0,Delhi,7.85,9
+E0107,8,Git|SQL|TensorFlow,28,1,Hyderabad,8.36,9
+E0108,5,Git|MongoDB|PyTorch,73,0,Chennai,7.31,8
+E0109,2,Linux|MongoDB|Machine Learning|TensorFlow|Power BI|SQL,31,1,Mumbai,8.01,8
+E0110,12,PyTorch|AWS|Power BI|Git|Selenium|Linux|Machine Learning,29,0,Delhi,8.58,8
+E0111,7,Linux|Azure|Power BI|Kubernetes,55,1,Mumbai,8.12,8
+E0112,12,SQL|Git|C++|MongoDB|Linux|Machine Learning,62,0,Chennai,7.56,9
+E0113,12,Spark|Azure|MongoDB|Machine Learning|Linux|Docker|Selenium,54,1,Coimbatore,8.79,9
+E0114,9,JavaScript|Deep Learning|MongoDB|TensorFlow|Node.js|Machine Learning|Docker,62,0,Pune,8.4,9
+E0115,11,Linux|Spark|Selenium|MongoDB,49,0,Bangalore,7.24,8
+E0116,10,Azure|Docker|Python|React|Deep Learning,66,0,Bangalore,7.84,7
+E0117,7,Git|PyTorch|JavaScript,62,1,Mumbai,7.6,9
+E0118,5,SQL|Java|Deep Learning|React|Selenium|C++|Git,71,1,Kolkata,8.53,9
+E0119,7,Linux|Spring Boot|JavaScript|PyTorch|Machine Learning|Docker,77,1,Chennai,9.07,8
+E0120,3,Selenium|Java|Python|JavaScript|AWS|PostgreSQL,47,1,Mumbai,8.92,7
+E0121,3,TensorFlow|Git|Linux,44,1,Coimbatore,8.84,8
+E0122,2,Linux|Python|Power BI,55,1,Delhi,8.87,8
+E0123,10,Machine Learning|Kubernetes|Python|Azure|React,61,0,Delhi,7.09,7
+E0124,2,Linux|Cybersecurity|Kubernetes|PyTorch,65,1,Mumbai,8.48,8
+E0125,9,React|SQL|PyTorch|PostgreSQL|Machine Learning,59,1,Bangalore,6.57,8
+E0126,3,Deep Learning|Spring Boot|JavaScript,34,0,Bangalore,8.1,8
+E0127,11,Cybersecurity|Git|Power BI|C++|Selenium|Azure,75,1,Pune,7.87,8
+E0128,1,Java|Docker|PyTorch|SQL|AWS|Power BI|Cybersecurity,22,1,Pune,8.94,7
+E0129,8,Selenium|PyTorch|Kubernetes,20,1,Hyderabad,6.57,8
+E0130,12,TensorFlow|PyTorch|Deep Learning|Java|Power BI|Machine Learning|Azure,25,0,Chennai,7.3,8
+E0131,6,Power BI|PyTorch|C++|Selenium|React|Docker,58,0,Mumbai,8.85,7
+E0132,5,Machine Learning|Spark|MongoDB|Kubernetes|AWS,34,1,Coimbatore,7.83,9
+E0133,11,Docker|AWS|PostgreSQL|C++,25,1,Delhi,7.42,8
+E0134,2,MongoDB|C++|Git|PyTorch,69,1,Chennai,8.83,8
+E0135,3,React|JavaScript|Azure|TensorFlow|Node.js,27,0,Mumbai,8.55,9
+E0136,3,Selenium|Kubernetes|Deep Learning|React,36,1,Chennai,8.72,8
+E0137,5,MongoDB|Git|Node.js|Power BI|Selenium,44,0,Pune,8.22,8
+E0138,8,Docker|MongoDB|Cybersecurity|Power BI,51,1,Delhi,6.89,8
+E0139,11,Selenium|Deep Learning|Spring Boot|Java,28,0,Pune,7.48,7
+E0140,7,Spring Boot|Power BI|PyTorch|Deep Learning,26,0,Kolkata,8.29,8
+E0141,9,Linux|Java|Kubernetes,25,1,Hyderabad,7.68,7
+E0142,3,Machine Learning|C++|PostgreSQL|Azure|Deep Learning,19,1,Kolkata,8.73,8
+E0143,4,Power BI|Selenium|Python|SQL|MongoDB|Spring Boot,82,1,Coimbatore,8.68,8
+E0144,7,AWS|Machine Learning|Java|Node.js,73,0,Coimbatore,7.39,8
+E0145,5,Spark|Python|PostgreSQL|PyTorch|Cybersecurity|Node.js|Deep Learning,45,1,Bangalore,7.26,7
+E0146,1,Docker|SQL|PyTorch|Spark|MongoDB|Selenium|PostgreSQL,64,1,Chennai,8.65,8
+E0147,6,Spring Boot|Git|Python|Docker|SQL,28,1,Bangalore,8.26,7
+E0148,8,Spark|Azure|PostgreSQL|React|MongoDB,76,0,Bangalore,9.3,7
+E0149,6,Java|AWS|JavaScript|Git|MongoDB|PostgreSQL,84,1,Pune,9.02,7
+E0150,6,AWS|Docker|Java|PostgreSQL,49,0,Mumbai,7.83,8
+E0151,12,Git|Power BI|Kubernetes|Azure|React|TensorFlow,81,1,Coimbatore,6.5,8
+E0152,9,Linux|Selenium|React,52,1,Coimbatore,8.23,7
+E0153,7,MongoDB|AWS|Power BI|Selenium|C++,72,0,Mumbai,8.61,9
+E0154,9,Spring Boot|PostgreSQL|Java|SQL|Kubernetes|Docker,35,0,Bangalore,8.9,9
+E0155,7,Java|Deep Learning|SQL|Node.js|Docker|Selenium,34,1,Mumbai,8.38,8
+E0156,6,SQL|Cybersecurity|Deep Learning|PyTorch|Docker|Kubernetes,50,0,Coimbatore,8.14,7
+E0157,2,TensorFlow|PyTorch|Kubernetes|Spark,72,0,Pune,8.16,8
+E0158,3,Machine Learning|Deep Learning|SQL|Power BI,71,0,Mumbai,8.78,8
+E0159,12,Spark|AWS|React,37,1,Hyderabad,7.91,7
+E0160,6,Deep Learning|Node.js|TensorFlow|Python,85,1,Kolkata,7.07,9
+E0161,12,Selenium|SQL|AWS|Kubernetes,67,0,Bangalore,8.02,8
+E0162,6,Power BI|MongoDB|PyTorch,31,0,Bangalore,7.3,8
+E0163,6,Java|Machine Learning|PyTorch|Deep Learning|AWS|React|Cybersecurity,81,1,Coimbatore,8.69,8
+E0164,11,PostgreSQL|Spark|Spring Boot|Deep Learning,53,0,Bangalore,7.99,9
+E0165,1,Deep Learning|React|MongoDB|Selenium|PostgreSQL|Azure|Java,48,0,Delhi,9.79,9
+E0166,5,TensorFlow|PostgreSQL|Spark,53,1,Hyderabad,9.09,8
+E0167,8,Power BI|SQL|C++|Java|React,58,0,Mumbai,7.48,8
+E0168,2,Kubernetes|Deep Learning|Docker|PyTorch|Spark,55,0,Kolkata,8.62,7
+E0169,5,Power BI|Node.js|Deep Learning|Machine Learning|Java,68,0,Bangalore,9.61,8
+E0170,8,Git|Azure|JavaScript|React|TensorFlow|PyTorch|Power BI,54,1,Chennai,7.7,7
+E0171,1,PyTorch|Power BI|Node.js|JavaScript|Cybersecurity|Docker,75,1,Chennai,9.03,7
+E0172,7,Deep Learning|Spring Boot|Docker|Kubernetes|MongoDB|Java,21,0,Mumbai,8.47,9
+E0173,5,SQL|Kubernetes|PyTorch|Power BI|Spark,30,0,Coimbatore,8.68,8
+E0174,10,Azure|Spark|Docker|Deep Learning|JavaScript,80,1,Chennai,7.27,7
+E0175,8,Deep Learning|C++|Azure,80,0,Mumbai,7.78,9
+E0176,10,React|Kubernetes|Selenium|Git|AWS,58,1,Pune,8.15,8
+E0177,2,Docker|Azure|MongoDB,18,1,Pune,9.19,9
+E0178,3,Node.js|Java|Cybersecurity|TensorFlow|React|PyTorch|Kubernetes,46,0,Coimbatore,8.07,8
+E0179,3,Power BI|Azure|Linux,79,1,Chennai,7.77,8
+E0180,3,JavaScript|Spark|Azure|TensorFlow|PyTorch|Kubernetes|MongoDB,73,1,Mumbai,8.46,8
+E0181,5,TensorFlow|JavaScript|Node.js|Spring Boot|Spark|AWS|MongoDB,77,1,Kolkata,8.36,8
+E0182,7,Git|Spring Boot|AWS|Machine Learning|Cybersecurity|Spark|Kubernetes,59,0,Pune,7.04,7
+E0183,5,C++|SQL|Docker|Power BI|PostgreSQL,83,1,Pune,8.19,8
+E0184,4,Selenium|Git|Cybersecurity,46,0,Hyderabad,7.68,8
+E0185,12,Machine Learning|Linux|Azure,32,0,Bangalore,7.08,8
+E0186,11,TensorFlow|PostgreSQL|JavaScript|AWS|Azure|C++,22,0,Hyderabad,8.4,9
+E0187,7,React|Linux|Java,52,0,Chennai,8.31,8
+E0188,8,Selenium|Machine Learning|Azure|AWS|Power BI|Spark|PyTorch,32,1,Pune,7.73,8
+E0189,8,Azure|React|Git,16,1,Pune,7.49,9
+E0190,7,React|Selenium|PostgreSQL|Kubernetes,80,1,Coimbatore,7.24,8
+E0191,6,React|Deep Learning|TensorFlow,64,0,Kolkata,8.28,8
+E0192,11,AWS|Cybersecurity|Git|Python|Spring Boot,61,0,Chennai,8.17,7
+E0193,11,AWS|React|Kubernetes|PyTorch|Git|Machine Learning,43,0,Bangalore,8.74,8
+E0194,7,Power BI|Git|Selenium|Docker,85,1,Hyderabad,7.88,8
+E0195,1,SQL|PyTorch|Power BI|C++|Docker|Git|Machine Learning,40,0,Bangalore,8.97,8
+E0196,9,Power BI|Machine Learning|MongoDB|JavaScript|Cybersecurity|TensorFlow|SQL,72,0,Kolkata,6.77,8
+E0197,12,Linux|Power BI|Cybersecurity|Java|Spark|C++|AWS,15,0,Coimbatore,8.77,7
+E0198,8,Docker|C++|SQL|Spark|Java|MongoDB,19,1,Delhi,8.28,8
+E0199,7,PostgreSQL|Git|Linux|Docker,63,1,Coimbatore,6.61,9
+E0200,9,PostgreSQL|Docker|Machine Learning|React,65,0,Hyderabad,8.73,7
+E0201,12,AWS|Power BI|MongoDB,44,0,Kolkata,7.31,8
+E0202,1,Spring Boot|JavaScript|Git|Machine Learning,68,0,Hyderabad,7.95,8
+E0203,8,Machine Learning|Selenium|Java,21,0,Chennai,7.24,8
+E0204,5,Node.js|Spark|JavaScript|Java|Deep Learning|PyTorch,44,1,Mumbai,7.53,8
+E0205,5,Deep Learning|MongoDB|PyTorch|Node.js|Linux,37,1,Kolkata,8.05,7
+E0206,12,PostgreSQL|MongoDB|Kubernetes|PyTorch|Azure,68,1,Bangalore,9.14,8
+E0207,12,React|Spark|TensorFlow|Node.js|PostgreSQL|AWS,22,1,Delhi,8.72,9
+E0208,8,Deep Learning|Kubernetes|Node.js|Spring Boot|JavaScript|Azure|SQL,62,0,Hyderabad,8.86,7
+E0209,4,Kubernetes|MongoDB|Selenium|Java|SQL,42,1,Hyderabad,8.54,8
+E0210,4,Python|JavaScript|Git|Machine Learning|TensorFlow,41,1,Hyderabad,7.26,9
+E0211,6,AWS|Kubernetes|Power BI|Spark|PostgreSQL,78,1,Coimbatore,7.95,8
+E0212,10,JavaScript|Docker|Azure|Linux|Java,43,0,Chennai,8.86,8
+E0213,4,Cybersecurity|Git|Linux|AWS|Deep Learning|JavaScript|Azure,78,1,Pune,7.17,8
+E0214,8,Power BI|React|Docker|C++|Deep Learning|Spark,38,0,Chennai,9.17,7
+E0215,11,Python|Linux|Deep Learning,16,0,Kolkata,8.34,8
+E0216,10,Selenium|PostgreSQL|MongoDB,76,1,Chennai,9.37,7
+E0217,5,Spark|Linux|Python|MongoDB|PyTorch|Spring Boot|Git,70,0,Coimbatore,9.57,7
+E0218,5,Deep Learning|Node.js|JavaScript|Selenium|PyTorch|Spring Boot|Docker,65,0,Mumbai,8.35,8
+E0219,2,Cybersecurity|Node.js|C++|AWS|SQL|Java,75,0,Chennai,7.6,8
+E0220,6,TensorFlow|Linux|PostgreSQL,27,0,Hyderabad,8.61,8
+E0221,3,TensorFlow|Spring Boot|Java|SQL|C++|Spark|MongoDB,41,0,Delhi,8.79,7
+E0222,9,React|Cybersecurity|Node.js|Kubernetes|MongoDB,57,1,Bangalore,7.92,7
+E0223,6,Git|Docker|Java|Machine Learning|Linux|Node.js|SQL,65,1,Chennai,7.38,8
+E0224,3,TensorFlow|Node.js|Docker|Spark|Kubernetes|Linux,63,0,Pune,7.56,8
+E0225,7,SQL|Spring Boot|Deep Learning,64,1,Mumbai,7.95,7
+E0226,6,Python|AWS|Power BI,49,0,Bangalore,7.17,7
+E0227,7,Linux|Power BI|Spark|PyTorch,85,0,Mumbai,8.46,8
+E0228,2,AWS|Linux|Kubernetes,46,0,Delhi,8.4,8
+E0229,2,Spring Boot|AWS|TensorFlow|Deep Learning,53,1,Coimbatore,8.5,8
+E0230,10,Node.js|Git|PostgreSQL|TensorFlow|Selenium,40,1,Coimbatore,8.72,8
+E0231,6,Python|Kubernetes|Azure|Selenium|Power BI,32,1,Mumbai,6.93,9
+E0232,6,TensorFlow|Azure|React|Kubernetes,52,1,Hyderabad,8.79,8
+E0233,10,Spring Boot|Kubernetes|Docker|Machine Learning|Cybersecurity|JavaScript,85,0,Kolkata,8.67,8
+E0234,11,AWS|C++|SQL|Linux|TensorFlow|Deep Learning,53,0,Pune,8.19,8
+E0235,7,Kubernetes|SQL|Power BI|Selenium|TensorFlow|Cybersecurity,68,0,Mumbai,6.54,9
+E0236,10,PostgreSQL|SQL|Machine Learning|Node.js|Docker|React|Java,66,1,Delhi,7.84,7
+E0237,9,Machine Learning|Spring Boot|Node.js,43,1,Mumbai,8.18,8
+E0238,8,MongoDB|Cybersecurity|PyTorch|Deep Learning|Docker|Python,28,1,Delhi,7.24,7
+E0239,5,Git|Deep Learning|Docker,81,1,Mumbai,7.47,8
+E0240,8,Power BI|Git|C++,55,0,Pune,9.3,7
+E0241,2,Python|Azure|PostgreSQL,46,0,Bangalore,8.0,8
+E0242,7,Linux|Power BI|Node.js|Kubernetes|React|Selenium|Git,18,0,Kolkata,7.8,9
+E0243,10,Kubernetes|Python|JavaScript|MongoDB|Spring Boot|SQL,38,1,Mumbai,9.42,8
+E0244,10,Machine Learning|Spring Boot|MongoDB|TensorFlow|PyTorch|Azure,64,1,Coimbatore,9.11,8
+E0245,5,Power BI|Selenium|React|MongoDB|C++,32,1,Coimbatore,9.07,8
+E0246,9,Machine Learning|React|Docker|C++|Deep Learning,64,1,Bangalore,7.71,9
+E0247,9,Linux|React|TensorFlow|PostgreSQL|Spark|C++,38,1,Kolkata,8.51,9
+E0248,3,Docker|Python|TensorFlow,39,1,Kolkata,8.74,8
+E0249,10,Linux|C++|Power BI|TensorFlow|React|SQL,52,0,Pune,9.45,8
+E0250,2,AWS|React|Power BI|Cybersecurity|TensorFlow|Spark|PyTorch,29,1,Mumbai,8.44,9
+E0251,4,Git|Power BI|Spark,46,1,Chennai,8.55,8
+E0252,4,Docker|SQL|Power BI|Machine Learning|Node.js,59,1,Bangalore,8.18,9
+E0253,9,JavaScript|Java|Cybersecurity|Docker,56,1,Pune,8.02,9
+E0254,1,PyTorch|MongoDB|Machine Learning|Deep Learning|Linux,50,0,Bangalore,9.12,8
+E0255,7,C++|Azure|Node.js|MongoDB,49,1,Delhi,7.22,8
+E0256,9,PostgreSQL|SQL|Kubernetes,50,1,Kolkata,8.27,8
+E0257,11,Cybersecurity|Python|Git|SQL|Power BI,23,1,Hyderabad,7.84,8
+E0258,6,TensorFlow|Spring Boot|Azure|AWS,85,0,Kolkata,7.59,8
+E0259,8,Java|Machine Learning|PostgreSQL,35,1,Kolkata,9.92,7
+E0260,5,JavaScript|C++|Deep Learning|PostgreSQL|AWS|React,26,1,Pune,8.38,7
+E0261,11,MongoDB|PostgreSQL|React|Java|Kubernetes,44,1,Coimbatore,7.8,7
+E0262,3,JavaScript|TensorFlow|SQL,43,1,Chennai,9.29,7
+E0263,2,Machine Learning|Linux|C++|Deep Learning|TensorFlow,28,0,Mumbai,8.24,8
+E0264,9,Deep Learning|Kubernetes|PostgreSQL|MongoDB|SQL,16,0,Kolkata,8.52,8
+E0265,10,PostgreSQL|Git|Deep Learning|Linux,26,0,Bangalore,7.62,7
+E0266,5,Git|Kubernetes|Docker|Linux|Azure|Deep Learning|Node.js,25,0,Pune,6.83,7
+E0267,5,JavaScript|PyTorch|Selenium|Git|Kubernetes,45,1,Delhi,7.4,7
+E0268,9,TensorFlow|PostgreSQL|Selenium|SQL,16,1,Mumbai,7.16,8
+E0269,2,Cybersecurity|Linux|Docker|Spark|React|TensorFlow,48,0,Chennai,8.48,7
+E0270,12,PyTorch|AWS|PostgreSQL|Git|Linux|Selenium,66,0,Bangalore,8.23,8
+E0271,4,AWS|SQL|PyTorch,56,1,Coimbatore,8.63,8
+E0272,2,Git|Node.js|Java|C++|SQL|Linux,73,0,Pune,8.13,8
+E0273,12,Python|C++|Deep Learning,59,1,Bangalore,9.08,8
+E0274,6,Git|Spring Boot|Machine Learning|Python,69,1,Coimbatore,8.26,8
+E0275,8,PostgreSQL|SQL|TensorFlow|Power BI|PyTorch|Docker|Java,35,1,Coimbatore,8.49,9
+E0276,1,Node.js|Git|PyTorch,20,0,Hyderabad,7.85,7
+E0277,12,Docker|Kubernetes|Deep Learning|React|Java|Spark,56,0,Delhi,8.15,8
+E0278,11,SQL|Cybersecurity|Docker|Machine Learning|PyTorch,21,0,Hyderabad,7.42,9
+E0279,5,Kubernetes|SQL|Power BI,26,1,Chennai,8.3,8
+E0280,4,AWS|Cybersecurity|Git|Selenium,74,1,Kolkata,7.56,8
+E0281,6,Node.js|Deep Learning|Python|Linux|MongoDB|Git|Spark,16,1,Chennai,7.44,8
+E0282,8,Machine Learning|JavaScript|PyTorch|Node.js|Linux,22,0,Pune,7.33,7
+E0283,12,Node.js|PyTorch|Linux,25,0,Bangalore,8.86,8
+E0284,11,Cybersecurity|Java|Linux,31,0,Pune,7.69,8
+E0285,5,Kubernetes|C++|Git|Azure|Power BI,32,0,Bangalore,8.38,7
+E0286,9,Power BI|Azure|Linux|Machine Learning,60,0,Kolkata,9.99,8
+E0287,4,Spring Boot|Machine Learning|SQL|React|AWS|Java,26,0,Mumbai,8.54,8
+E0288,8,Java|MongoDB|AWS|Spring Boot|React|Python|Kubernetes,85,0,Coimbatore,7.63,8
+E0289,1,Deep Learning|Machine Learning|Python,31,0,Delhi,9.23,8
+E0290,1,Cybersecurity|Spring Boot|SQL,23,0,Kolkata,6.33,8
+E0291,8,Azure|Machine Learning|Java,70,1,Kolkata,9.82,7
+E0292,5,MongoDB|Linux|React|Docker|JavaScript|Git,50,1,Bangalore,8.73,7
+E0293,9,Selenium|Git|Node.js|PostgreSQL|AWS|TensorFlow|Linux,64,0,Delhi,7.88,8
+E0294,9,Node.js|PostgreSQL|Spark|Python|Kubernetes|Docker|TensorFlow,77,1,Mumbai,8.24,8
+E0295,1,React|Python|Azure|Selenium|Node.js,22,1,Mumbai,9.23,9
+E0296,4,React|Machine Learning|Node.js|MongoDB,49,0,Hyderabad,7.41,9
+E0297,12,Docker|React|C++|Node.js|Cybersecurity|Azure,18,1,Bangalore,7.66,9
+E0298,8,TensorFlow|Spark|AWS|React,19,0,Chennai,6.63,8
+E0299,3,Node.js|Python|PyTorch|TensorFlow|C++|Azure|JavaScript,56,0,Chennai,7.95,8
+E0300,12,C++|Deep Learning|Machine Learning|PyTorch|Docker|SQL|Selenium,65,0,Mumbai,8.59,8
