@@ -8,7 +8,9 @@ export default function useBackendHealth() {
   const [status, setStatus] = useState('checking');
   const [error, setError] = useState('');
   const [attempts, setAttempts] = useState(0);
+  const [retryNonce, setRetryNonce] = useState(0);
   const timeoutRef = useRef(null);
+  const attemptsRef = useRef(0);
 
   const check = useCallback(async () => {
     try {
@@ -31,7 +33,19 @@ export default function useBackendHealth() {
         return false;
       }
 
-      if (attempts >= MAX_ATTEMPTS - 1) {
+      if (responseStatus === 403) {
+        setStatus('unavailable');
+        setError('Backend rejected the health check. Check CORS and deployment configuration.');
+        return false;
+      }
+
+      if (responseStatus >= 500 && responseStatus !== 502 && responseStatus !== 503) {
+        setStatus('unavailable');
+        setError(`Backend health check failed with HTTP ${responseStatus}.`);
+        return false;
+      }
+
+      if (attemptsRef.current >= MAX_ATTEMPTS - 1) {
         setStatus('unavailable');
         setError('Unable to connect to the workforce backend.');
         return false;
@@ -41,21 +55,23 @@ export default function useBackendHealth() {
       setError('Backend is starting or temporarily unavailable.');
       return false;
     }
-  }, [attempts]);
+  }, []);
 
   const retry = useCallback(() => {
+    attemptsRef.current = 0;
     setAttempts(0);
     setStatus('checking');
     setError('');
+    setRetryNonce((value) => value + 1);
   }, []);
 
   useEffect(() => {
-    if (status === 'ready') {
+    if (status === 'ready' || status === 'unavailable') {
       return undefined;
     }
 
     let isActive = true;
-    if (attempts >= MAX_ATTEMPTS) {
+    if (attemptsRef.current >= MAX_ATTEMPTS) {
       setStatus('unavailable');
       setError('Unable to connect to the workforce backend.');
       return undefined;
@@ -65,13 +81,14 @@ export default function useBackendHealth() {
       const ok = await check();
       if (!isActive || ok) return;
 
-      if (attempts >= MAX_ATTEMPTS - 1) {
+      if (attemptsRef.current >= MAX_ATTEMPTS - 1) {
         return;
       }
 
       timeoutRef.current = setTimeout(() => {
         if (isActive) {
-          setAttempts((previous) => previous + 1);
+          attemptsRef.current += 1;
+          setAttempts(attemptsRef.current);
         }
       }, RETRY_INTERVAL_MS);
     };
@@ -84,7 +101,7 @@ export default function useBackendHealth() {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [attempts, check, status]);
+  }, [attempts, check, retryNonce, status]);
 
   return { status, isReady: status === 'ready', isChecking: status === 'checking', error, retry };
 }

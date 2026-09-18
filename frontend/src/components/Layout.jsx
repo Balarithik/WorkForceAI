@@ -15,7 +15,6 @@ const navItems = [
 ];
 
 function BackendStatusBanner({ status, error, retry }) {
-  const isChecking = status === 'checking';
   const isUnavailable = status === 'unavailable';
 
   if (status === 'ready') {
@@ -45,18 +44,22 @@ export default function Layout() {
   const { status, error, retry } = useBackendHealth();
 
   useEffect(() => {
+    if (status !== 'ready') {
+      return undefined;
+    }
+
     const refreshNotifications = async () => {
       try {
         const res = await getNotifications(true);
         setUnreadCount(Array.isArray(res.data) ? res.data.length : 0);
-      } catch (error) {
+      } catch {
         setUnreadCount(0);
       }
     };
     refreshNotifications();
     const interval = setInterval(refreshNotifications, 15000);
     return () => clearInterval(interval);
-  }, []);
+  }, [status]);
 
   return (
     <div>
