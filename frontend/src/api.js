@@ -27,6 +27,14 @@ export const getEmployees = () => api.get('/employees/');
 export const getTasks = () => api.get('/tasks/');
 export const getAssignments = () => api.get('/assignments/');
 export const getEvents = () => api.get('/events/');
+export const getSlaRisks = () => api.get('/sla-risks/');
+export const getNotifications = (unreadOnly = false) => api.get(`/notifications/?unread_only=${String(unreadOnly).toLowerCase()}`);
+export const markNotificationRead = (id) => api.patch(`/notifications/${id}/read/`);
+export const markAllNotificationsRead = () => api.post('/notifications/read-all/');
+export const getDecisions = () => api.get('/decisions/');
+export const getTaskDecisionHistory = (taskId) => api.get(`/tasks/${taskId}/decision-history/`);
+export const getWorkforceTwin = () => api.get('/workforce-twin/');
+export const queryCopilot = (question) => api.post('/copilot/query/', { question });
 
 export const updateEmployee = (id, data) => api.patch(`/employees/${id}/`, data);
 
