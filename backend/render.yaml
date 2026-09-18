@@ -1,27 +1,43 @@
-# Render Blueprint for the backend service only.
 services:
   - type: web
     name: workforceai-backend
-    runtime: docker
+    runtime: python
     rootDir: backend
-    dockerfilePath: ./Dockerfile
-    dockerContext: .
-    plan: free
+    plan: starter
+
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+
+    startCommand: |
+      gunicorn config.wsgi:application --bind 0.0.0.0:$PORT
+
     healthCheckPath: /api/health/
+
     envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.5
+
       - key: DEBUG
         value: "false"
-      - key: ALLOWED_HOSTS
-        value: "workforceai-backend.onrender.com"
-      - key: CORS_ALLOWED_ORIGINS
-        value: "https://workforceai.onrender.com,http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174"
-      - key: CSRF_TRUSTED_ORIGINS
-        value: "https://workforceai.onrender.com,http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174"
-      - key: SQLITE_DB_PATH
-        value: "/app/db.sqlite3"
-      - key: ML_MODEL_DIR
-        value: "/app/ml_models"
-      - key: PYTHONUNBUFFERED
-        value: "1"
+
       - key: SECRET_KEY
         generateValue: true
+
+      - key: ALLOWED_HOSTS
+        sync: false
+
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false
+
+      - key: CSRF_TRUSTED_ORIGINS
+        sync: false
+
+      - key: SQLITE_DB_PATH
+        value: /opt/render/project/src/data/db.sqlite3
+
+      - key: ML_MODEL_DIR
+        value: /opt/render/project/src/ml_models
+
+      - key: PYTHONUNBUFFERED
+        value: "1"
