@@ -35,6 +35,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'dev-only-insecure-key-change-me')
 DEBUG = env_bool('DEBUG', True)
 
 ALLOWED_HOSTS = env_list('ALLOWED_HOSTS', '127.0.0.1,localhost,testserver')
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 
 # Application definition

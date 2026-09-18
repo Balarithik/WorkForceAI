@@ -94,6 +94,9 @@ class Event(models.Model):
         ('WORKLOAD_CHANGED', 'Workload Changed'),
         ('SLA_CHANGED', 'SLA Changed'),
         ('REALLOCATION', 'Reallocation'),
+        ('SLA_RISK_HIGH', 'SLA Risk High'),
+        ('NEW_CRITICAL_TASK', 'New Critical Task'),
+        ('TASK_DELAYED', 'Task Delayed'),
     ]
 
     event_type = models.CharField(max_length=50, choices=EVENT_TYPES)
@@ -104,3 +107,95 @@ class Event(models.Model):
 
     def __str__(self):
         return f"{self.event_type} at {self.created_at}"
+
+
+class Notification(models.Model):
+    SEVERITY_CHOICES = [
+        ('INFO', 'Info'),
+        ('WARNING', 'Warning'),
+        ('HIGH', 'High'),
+        ('CRITICAL', 'Critical'),
+    ]
+    NOTIFICATION_TYPES = [
+        ('SLA_RISK', 'SLA Risk'),
+        ('EMPLOYEE_UNAVAILABLE', 'Employee Unavailable'),
+        ('REALLOCATION', 'Reallocation'),
+        ('HIGH_WORKLOAD', 'High Workload'),
+        ('NEW_CRITICAL_TASK', 'New Critical Task'),
+        ('TASK_ASSIGNED', 'Task Assigned'),
+        ('TASK_COMPLETED', 'Task Completed'),
+        ('MODEL_ALERT', 'Model Alert'),
+    ]
+
+    notification_type = models.CharField(max_length=40, choices=NOTIFICATION_TYPES)
+    title = models.CharField(max_length=200)
+    message = models.TextField()
+    severity = models.CharField(max_length=20, choices=SEVERITY_CHOICES, default='INFO')
+    employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, blank=True, related_name='notifications')
+    task = models.ForeignKey(Task, on_delete=models.SET_NULL, null=True, blank=True, related_name='notifications')
+    event = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True, blank=True, related_name='notifications')
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        unique_together = ('notification_type', 'employee', 'task', 'event')
+
+    def __str__(self):
+        return f"{self.notification_type}: {self.title}"
+
+
+class AllocationDecision(models.Model):
+    TRIGGER_CHOICES = [
+        ('INITIAL_ASSIGNMENT', 'Initial Assignment'),
+        ('REALLOCATION', 'Reallocation'),
+        ('MANUAL_RECOMMENDATION', 'Manual Recommendation'),
+        ('SLA_RISK', 'SLA Risk'),
+    ]
+    STATUS_CHOICES = [
+        ('ACTIVE', 'Active'),
+        ('REALLOCATED', 'Reallocated'),
+        ('COMPLETED', 'Completed'),
+        ('CANCELLED', 'Cancelled'),
+    ]
+
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='decision_records')
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='decision_records')
+    assignment = models.ForeignKey(Assignment, on_delete=models.SET_NULL, null=True, blank=True, related_name='decision_records')
+    created_at = models.DateTimeField(auto_now_add=True)
+    trigger_type = models.CharField(max_length=40, choices=TRIGGER_CHOICES, default='INITIAL_ASSIGNMENT')
+    success_probability = models.FloatField(default=0.0)
+    sla_probability = models.FloatField(default=0.0)
+    predicted_completion_hours = models.FloatField(default=0.0)
+    skill_match_score = models.FloatField(default=0.0)
+    workload_percent = models.FloatField(default=0.0)
+    available_capacity_percent = models.FloatField(default=0.0)
+    suitability_score = models.FloatField(default=0.0)
+    score_breakdown = models.JSONField(default=dict, blank=True)
+    rank = models.IntegerField(default=1)
+    decision_reason = models.TextField(blank=True)
+    allocation_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='ACTIVE')
+    decision_context = models.JSONField(default=dict, blank=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Decision: {self.task.task_id} -> {self.employee.employee_id}"
+
+
+class TaskOutcome(models.Model):
+    assignment = models.OneToOneField(Assignment, on_delete=models.CASCADE, related_name='outcome')
+    predicted_success_probability = models.FloatField(default=0.0)
+    predicted_sla_probability = models.FloatField(default=0.0)
+    predicted_completion_hours = models.FloatField(default=0.0)
+    actual_completion_hours = models.FloatField(null=True, blank=True)
+    actual_sla_met = models.BooleanField(null=True, blank=True)
+    actual_success = models.BooleanField(null=True, blank=True)
+    recorded_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-recorded_at']
+
+    def __str__(self):
+        return f"Outcome for {self.assignment.task.task_id}"

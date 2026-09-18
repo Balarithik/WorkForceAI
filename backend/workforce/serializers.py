@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Employee, Task, Assignment, Event
+from .models import Employee, Task, Assignment, Event, Notification, AllocationDecision, TaskOutcome
 
 class EmployeeSerializer(serializers.ModelSerializer):
     available_capacity_percent = serializers.SerializerMethodField()
@@ -57,4 +57,30 @@ class EventSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Event
+        fields = '__all__'
+
+
+class NotificationSerializer(serializers.ModelSerializer):
+    employee_details = EmployeeSerializer(source='employee', read_only=True)
+    task_details = TaskSerializer(source='task', read_only=True)
+
+    class Meta:
+        model = Notification
+        fields = '__all__'
+
+
+class AllocationDecisionSerializer(serializers.ModelSerializer):
+    employee_details = EmployeeSerializer(source='employee', read_only=True)
+    task_details = TaskSerializer(source='task', read_only=True)
+
+    class Meta:
+        model = AllocationDecision
+        fields = '__all__'
+
+
+class TaskOutcomeSerializer(serializers.ModelSerializer):
+    assignment_details = AssignmentSerializer(source='assignment', read_only=True)
+
+    class Meta:
+        model = TaskOutcome
         fields = '__all__'
