@@ -1,7 +1,0 @@
-__pycache__/
-*.py[cod]
-venv/
-venv313/
-staticfiles/
-db.sqlite3-journal
-.env

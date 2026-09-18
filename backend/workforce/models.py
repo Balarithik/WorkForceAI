@@ -110,6 +110,7 @@ class Event(models.Model):
 
 
 class Notification(models.Model):
+    id = models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
     SEVERITY_CHOICES = [
         ('INFO', 'Info'),
         ('WARNING', 'Warning'),
@@ -146,6 +147,7 @@ class Notification(models.Model):
 
 
 class AllocationDecision(models.Model):
+    id = models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
     TRIGGER_CHOICES = [
         ('INITIAL_ASSIGNMENT', 'Initial Assignment'),
         ('REALLOCATION', 'Reallocation'),
@@ -185,6 +187,7 @@ class AllocationDecision(models.Model):
 
 
 class TaskOutcome(models.Model):
+    id = models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
     assignment = models.OneToOneField(Assignment, on_delete=models.CASCADE, related_name='outcome')
     predicted_success_probability = models.FloatField(default=0.0)
     predicted_sla_probability = models.FloatField(default=0.0)

@@ -35,7 +35,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'dev-only-insecure-key-change-me')
 DEBUG = env_bool('DEBUG', True)
 
 ALLOWED_HOSTS = env_list('ALLOWED_HOSTS', '127.0.0.1,localhost,testserver')
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Application definition
@@ -86,7 +86,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-SQLITE_DB_PATH = os.getenv('SQLITE_DB_PATH', str(BASE_DIR / 'db.sqlite3'))
+sqlite_path = Path(os.getenv('SQLITE_DB_PATH', str(BASE_DIR / 'db.sqlite3')))
+if not sqlite_path.is_absolute():
+    sqlite_path = BASE_DIR / sqlite_path
+sqlite_path.parent.mkdir(parents=True, exist_ok=True)
+SQLITE_DB_PATH = str(sqlite_path)
 
 DATABASES = {
     'default': {
@@ -139,7 +143,10 @@ CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = env_list('CSRF_TRUSTED_ORIGINS', 'http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174')
 
 # ML Models
-ML_MODEL_DIR = os.getenv('ML_MODEL_DIR', str(BASE_DIR / 'ml_models'))
+ml_model_path = Path(os.getenv('ML_MODEL_DIR', str(BASE_DIR / 'ml_models')))
+if not ml_model_path.is_absolute():
+    ml_model_path = BASE_DIR / ml_model_path
+ML_MODEL_DIR = str(ml_model_path)
 
 
 # Email
