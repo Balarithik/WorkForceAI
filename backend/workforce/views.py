@@ -3,14 +3,21 @@ from django.utils import timezone
 from rest_framework import serializers, viewsets, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Employee, Task, Assignment, Event
-from .serializers import EmployeeSerializer, TaskSerializer, AssignmentSerializer, EventSerializer
+from .models import Employee, Task, Assignment, Event, Notification, AllocationDecision, TaskOutcome
+from .serializers import EmployeeSerializer, TaskSerializer, AssignmentSerializer, EventSerializer, NotificationSerializer, AllocationDecisionSerializer, TaskOutcomeSerializer
 from .services.ml_service import ml_service
 from .services.feature_service import extract_features
 from .services.allocation_service import AllocationService
 from .services.reallocation_service import ReallocationService
 from .services.allocation_service import pywraplp
 from .services.workload_service import recalculate_employee_workload
+from .services.explanation_service import generate_employee_explanation
+from .services.sla_risk_service import calculate_sla_risk, get_sla_risks
+from .services.notification_service import create_notification, get_notifications, mark_notification_read, mark_all_notifications_read
+from .services.decision_service import record_decision, get_task_decision_history
+from .services.copilot_service import query_copilot, get_task_summary
+from .services.digital_twin_service import get_workforce_twin_summary
+from .services.outcome_service import record_task_outcome, export_training_data, calculate_prediction_metrics
 
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all().order_by('employee_id')
@@ -154,6 +161,8 @@ def predict_allocation(request):
         response_data = []
         for p in predictions:
             employee = p['employee']
+            risk = calculate_sla_risk(p['sla_probability'])
+            explanation = generate_employee_explanation(employee, task, p)
             response_data.append({
                 'employee': serialize_employee(employee),
                 'employee_id': employee.employee_id,
@@ -163,20 +172,28 @@ def predict_allocation(request):
                 'skill_match_score': p['skill_match_score'],
                 'success_probability': p['success_probability'],
                 'sla_probability': p['sla_probability'],
+                'sla_risk_probability': risk['sla_risk_probability'],
+                'sla_risk_level': risk['sla_risk_level'],
                 'predicted_completion_hours': p['predicted_completion_hours'],
                 'time_score': p['time_score'],
                 'suitability_score': p['suitability_score'],
                 'score_breakdown': p['score_breakdown'],
+                'explanation': explanation,
             })
 
         recommended = predictions[0]['employee'] if predictions else None
+        recommended_prediction = predictions[0] if predictions else None
+        risk = calculate_sla_risk(recommended_prediction['sla_probability']) if recommended_prediction else {'sla_probability': 0, 'sla_risk_probability': 0, 'sla_risk_level': 'LOW'}
         return Response({
             'candidates': response_data,
             'recommended_employee': serialize_employee(recommended) if recommended else None,
             'prediction': {
-                key: predictions[0][key]
+                key: recommended_prediction[key]
                 for key in ('success_probability', 'sla_probability', 'predicted_completion_hours', 'suitability_score')
-            } if predictions else None,
+            } if recommended_prediction else None,
+            'sla_risk_probability': risk['sla_risk_probability'],
+            'sla_risk_level': risk['sla_risk_level'],
+            'explanation': generate_employee_explanation(recommended, task, recommended_prediction) if recommended_prediction else None,
         })
     except Exception as exc:
         return Response({'error': 'ML prediction failed', 'detail': str(exc)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -218,7 +235,7 @@ def assign_task(request):
             result = optimization_results[0]
             emp = result['employee']
             metrics = result['metrics']
-            Assignment.objects.create(
+            assignment = Assignment.objects.create(
                 task=task,
                 employee=emp,
                 success_probability=metrics['success_probability'],
@@ -230,10 +247,53 @@ def assign_task(request):
             workload = recalculate_employee_workload(emp, create_event=True)
             task.status = 'ASSIGNED'
             task.save(update_fields=['status', 'updated_at'])
-            Event.objects.create(
+            event = Event.objects.create(
                 event_type='NEW_TASK', task=task, employee=emp,
                 description=f"New task '{task.title}' assigned to {emp.name}."
             )
+            risk = calculate_sla_risk(metrics['sla_probability'])
+            explanation = generate_employee_explanation(emp, task, {
+                'skill_match_score': metrics.get('skill_match_score', 0),
+                'available_capacity_percent': max(100 - emp.current_workload_percent, 0),
+                'current_workload_percent': emp.current_workload_percent,
+                'success_probability': metrics['success_probability'],
+                'sla_probability': metrics['sla_probability'],
+                'predicted_completion_hours': metrics['predicted_completion_hours'],
+                'time_score': metrics.get('time_score', 0),
+                'suitability_score': metrics['suitability_score'],
+                'experience_years': emp.experience_years,
+                'historical_performance_score': emp.historical_performance_score,
+            })
+            record_decision(
+                task=task,
+                employee=emp,
+                assignment=assignment,
+                trigger_type='INITIAL_ASSIGNMENT',
+                candidate_rank=1,
+                score_breakdown=metrics.get('score_breakdown', {}),
+                decision_reason=explanation['summary'],
+                allocation_status='ACTIVE',
+                decision_context={'task_id': task.task_id, 'employee_id': emp.employee_id},
+                metrics={
+                    'success_probability': metrics['success_probability'],
+                    'sla_probability': metrics['sla_probability'],
+                    'predicted_completion_hours': metrics['predicted_completion_hours'],
+                    'skill_match_score': metrics.get('skill_match_score', 0),
+                    'current_workload_percent': emp.current_workload_percent,
+                    'available_capacity_percent': max(100 - emp.current_workload_percent, 0),
+                    'suitability_score': metrics['suitability_score'],
+                }
+            )
+            if risk['sla_risk_level'] in {'HIGH', 'CRITICAL'}:
+                create_notification(
+                    'SLA_RISK',
+                    f'SLA risk detected for Task {task.task_id}.',
+                    f"SLA risk for task {task.task_id} is {risk['sla_risk_level']} with risk probability {(risk['sla_risk_probability'] * 100):.1f}%.",
+                    'HIGH' if risk['sla_risk_level'] == 'HIGH' else 'CRITICAL',
+                    employee=emp,
+                    task=task,
+                    event=event,
+                )
 
         return Response({
             'task_id': task.task_id,
@@ -243,13 +303,16 @@ def assign_task(request):
             },
             'success_probability': metrics['success_probability'],
             'sla_probability': metrics['sla_probability'],
+            'sla_risk_probability': risk['sla_risk_probability'],
+            'sla_risk_level': risk['sla_risk_level'],
             'predicted_completion_hours': metrics['predicted_completion_hours'],
-            'time_score': metrics['time_score'],
+            'time_score': metrics.get('time_score', 0),
             'suitability_score': metrics['suitability_score'],
-            'score_breakdown': metrics['score_breakdown'],
+            'score_breakdown': metrics.get('score_breakdown', {}),
             'status': 'recommended',
             'employee': EmployeeSerializer(emp).data,
             'workload': workload,
+            'explanation': explanation,
         })
     except ValueError as exc:
         return Response({'error': 'Assignment failed', 'detail': str(exc)}, status=status.HTTP_409_CONFLICT)
@@ -268,3 +331,65 @@ def reallocate_task(request):
         return Response({'error': 'Task not found.'}, status=status.HTTP_404_NOT_FOUND)
     except Exception as exc:
         return Response({'error': 'Reallocation failed', 'detail': str(exc)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(['GET'])
+def sla_risks(request):
+    return Response(get_sla_risks())
+
+
+@api_view(['GET'])
+def notifications(request):
+    unread_only = request.GET.get('unread_only', 'false').lower() == 'true'
+    notifications_qs = get_notifications(unread_only=unread_only)
+    return Response(NotificationSerializer(notifications_qs, many=True).data)
+
+
+@api_view(['PATCH'])
+def mark_notification_read(request, notification_id):
+    notification = mark_notification_read(notification_id)
+    if notification is None:
+        return Response({'error': 'Notification not found.'}, status=status.HTTP_404_NOT_FOUND)
+    return Response(NotificationSerializer(notification).data)
+
+
+@api_view(['POST'])
+def mark_all_notifications_read(request):
+    count = mark_all_notifications_read()
+    return Response({'updated': count})
+
+
+@api_view(['GET'])
+def decisions(request):
+    decisions_qs = AllocationDecision.objects.select_related('task', 'employee', 'assignment').all().order_by('-created_at')
+    return Response(AllocationDecisionSerializer(decisions_qs, many=True).data)
+
+
+@api_view(['GET'])
+def task_decision_history(request, task_id):
+    history = get_task_decision_history(task_id)
+    return Response(AllocationDecisionSerializer(history, many=True).data)
+
+
+@api_view(['POST'])
+def copilot_query(request):
+    question = request.data.get('question', '')
+    answer = query_copilot(question)
+    return Response(answer)
+
+
+@api_view(['GET'])
+def workforce_twin(request):
+    return Response(get_workforce_twin_summary())
+
+
+@api_view(['GET'])
+def task_outcomes(request):
+    outcomes = TaskOutcome.objects.select_related('assignment__task', 'assignment__employee').all().order_by('-recorded_at')
+    return Response(TaskOutcomeSerializer(outcomes, many=True).data)
+
+
+@api_view(['GET'])
+def export_training_data_api(request):
+    path = export_training_data(output_path='training_data.csv')
+    return Response({'path': path, 'count': TaskOutcome.objects.count()})

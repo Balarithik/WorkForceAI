@@ -6,6 +6,10 @@ import Employees from './pages/Employees';
 import Tasks from './pages/Tasks';
 import Assignments from './pages/Assignments';
 import Events from './pages/Events';
+import SlaRisk from './pages/SlaRisk';
+import Copilot from './pages/Copilot';
+import WorkforceTwin from './pages/WorkforceTwin';
+import DecisionHistory from './pages/DecisionHistory';
 
 function App() {
   return (
@@ -19,6 +23,10 @@ function App() {
           <Route path="tasks" element={<Tasks />} />
           <Route path="assignments" element={<Assignments />} />
           <Route path="events" element={<Events />} />
+          <Route path="sla-risk" element={<SlaRisk />} />
+          <Route path="copilot" element={<Copilot />} />
+          <Route path="workforce-twin" element={<WorkforceTwin />} />
+          <Route path="decision-history" element={<DecisionHistory />} />
         </Route>
       </Routes>
     </BrowserRouter>

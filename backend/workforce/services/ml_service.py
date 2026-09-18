@@ -5,6 +5,13 @@ import warnings
 import joblib
 from django.conf import settings
 
+try:
+    from sklearn.compose import _column_transformer as sklearn_column_transformer
+    if not hasattr(sklearn_column_transformer, '_RemainderColsList'):
+        sklearn_column_transformer._RemainderColsList = list
+except Exception:
+    pass
+
 from .feature_service import extract_features
 
 logger = logging.getLogger(__name__)
