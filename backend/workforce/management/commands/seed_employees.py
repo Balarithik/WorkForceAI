@@ -37,7 +37,7 @@ def profile(index):
 
 
 class Command(BaseCommand):
-    help = 'Create or update exactly 50 deterministic synthetic employee profiles.'
+    help = 'Create or update 100 deterministic synthetic employee profiles.'
 
     def add_arguments(self, parser):
         parser.add_argument('--start-id', default='E001', help='Prefix followed by a three-digit employee number.')
@@ -47,7 +47,7 @@ class Command(BaseCommand):
         start_id = options['start_id']
         prefix = ''.join(character for character in start_id if not character.isdigit()) or 'E'
 
-        for index in range(1, 51):
+        for index in range(1, 101):
             employee_id = f'{prefix}{index:03d}'
             employee, was_created = Employee.objects.update_or_create(
                 employee_id=employee_id,
@@ -63,7 +63,7 @@ class Command(BaseCommand):
         self.stdout.write(f'Employees updated: {updated}')
         self.stdout.write(f'Employees skipped: {skipped}')
         self.stdout.write(f'Total employees: {total}')
-        if total != 50:
+        if total != 100:
             self.stdout.write(self.style.WARNING('Existing employee IDs outside the seeded range were preserved.'))
         else:
-            self.stdout.write(self.style.SUCCESS('Employee seed complete: database contains exactly 50 employees.'))
+            self.stdout.write(self.style.SUCCESS('Employee seed complete: database contains exactly 100 employees.'))
