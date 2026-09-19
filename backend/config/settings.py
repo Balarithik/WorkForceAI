@@ -141,11 +141,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
 # ML Models
-ml_model_path = Path(os.getenv('ML_MODEL_DIR', str(BASE_DIR / 'ml_models')))
-if not ml_model_path.is_absolute():
-    ml_model_path = BASE_DIR / ml_model_path
-ML_MODEL_DIR = ml_model_path
 
+ML_MODEL_DIR = BASE_DIR / "ml_models"
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
