@@ -1,6 +1,6 @@
 import logging
-import os
 import warnings
+from pathlib import Path
 
 import joblib
 from django.conf import settings
@@ -43,30 +43,30 @@ class MLService:
         return cls._instance
 
     def _load_models(self):
-        ml_dir = getattr(settings, 'ML_MODEL_DIR', os.path.join(settings.BASE_DIR, 'ml_models'))
+        model_dir = Path(getattr(settings, 'ML_MODEL_DIR', Path(settings.BASE_DIR) / 'ml_models'))
         files = {
-            'success': os.path.join(ml_dir, 'task_success_model.pkl'),
-            'sla': os.path.join(ml_dir, 'sla_model.pkl'),
-            'completion': os.path.join(ml_dir, 'completion_time_model.pkl'),
+            'success': model_dir / 'task_success_model.pkl',
+            'sla': model_dir / 'sla_model.pkl',
+            'completion': model_dir / 'completion_time_model.pkl',
         }
 
-        missing = [path for path in files.values() if not os.path.exists(path)]
+        missing = [path for path in files.values() if not path.exists()]
         if missing:
             self.success_model = None
             self.sla_model = None
             self.completion_model = None
             self.models_loaded = False
-            logger.error('ML model files missing: %s', missing)
+            logger.error('ML model files missing from %s: %s', model_dir, missing)
             return
 
         try:
-            self.success_model = joblib.load(files['success'])
-            self.sla_model = joblib.load(files['sla'])
-            self.completion_model = joblib.load(files['completion'])
+            self.success_model = joblib.load(model_dir / 'task_success_model.pkl')
+            self.sla_model = joblib.load(model_dir / 'sla_model.pkl')
+            self.completion_model = joblib.load(model_dir / 'completion_time_model.pkl')
             self.models_loaded = True
-            logger.info('ML models loaded successfully from %s', ml_dir)
+            logger.info('ML models loaded successfully from %s', model_dir)
         except Exception:
-            logger.exception('Failed to load ML models from %s', ml_dir)
+            logger.exception('Failed to load ML models from %s', model_dir)
             self.success_model = None
             self.sla_model = None
             self.completion_model = None

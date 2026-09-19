@@ -19,6 +19,20 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         checks = []
+        model_dir = settings.ML_MODEL_DIR
+        model_paths = {
+            'task_success_model.pkl': model_dir / 'task_success_model.pkl',
+            'sla_model.pkl': model_dir / 'sla_model.pkl',
+            'completion_time_model.pkl': model_dir / 'completion_time_model.pkl',
+        }
+        self.stdout.write(f'BASE_DIR: {settings.BASE_DIR}')
+        self.stdout.write(f'ML_MODEL_DIR: {model_dir}')
+        self.stdout.write(f'ML_MODEL_DIR exists: {model_dir.exists()}')
+        for filename, path in model_paths.items():
+            self.stdout.write(f'{filename} exists: {path.exists()}')
+        self.stdout.write(f'task_success_model class: {type(ml_service.success_model).__name__}')
+        self.stdout.write(f'sla_model class: {type(ml_service.sla_model).__name__}')
+        self.stdout.write(f'completion_time_model class: {type(ml_service.completion_model).__name__}')
         try:
             connection.ensure_connection()
             checks.append(self.report('Database', True))
