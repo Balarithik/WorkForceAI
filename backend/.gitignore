@@ -1,0 +1,16 @@
+# Secrets
+.env
+.env.*
+!.env.example
+!.env.render.example
+
+# Python runtime
+__pycache__/
+*.py[cod]
+venv/
+venv*/
+
+# Django generated files
+staticfiles/
+*.log
+*.sqlite3-journal
