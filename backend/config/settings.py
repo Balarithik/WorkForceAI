@@ -137,10 +137,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-CORS_ALLOW_ALL_ORIGINS = False
-CORS_ALLOWED_ORIGINS = ['http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174','https://workforceai.onrender.com/']
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
-CSRF_TRUSTED_ORIGINS = ['http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174','https://workforceai.onrender.com/']
 
 # ML Models
 ml_model_path = Path(os.getenv('ML_MODEL_DIR', str(BASE_DIR / 'ml_models')))
